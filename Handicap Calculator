@@ -82,8 +82,6 @@ double calcHandicap(int round, double difference[], double bestTen[])
 	return total*1.0/marker;
 }
 
-//void removeOldScores(round)
-
 int main()
 {
 	ifstream fin("diff.txt");
@@ -92,16 +90,15 @@ int main()
 		cout << "Error diff.txt not found" << endl;
 		return -1;
 	}
-	scoreEntry scoresEntered[50];
+	scoreEntry scoresEntered[100];
 	string entry,courseName;
 	int date,score,day;
-	double difference[50]={0}, bestTen[10]={-100},courseRating,courseSlope,index;
-	scoreEntry roundsPlayed[50];
+	double difference[100]={0}, bestTen[10]={-100},courseRating,courseSlope,index;
 	int round = readInFile(fin,difference,scoresEntered);
 
 	do
 	{		
-		cout << "Enter date of round. ddmmyyyy Ex 05032105" << endl;
+		cout << "Enter date of round - yymmdd Ex: 150403 " << endl;
 		cin >> date;
 		
 		scoresEntered[round].date = date;
@@ -150,14 +147,16 @@ int main()
 	}
 	else
 	
-	fout << << fixed << setprecision(1)  << hCap << endl; // NEED TO ROUND TO A SINGLE DECIMAL PLACE
+	fout << fixed << setprecision(1)  << hCap << endl; // NEED TO ROUND TO A SINGLE DECIMAL PLACE
 	
 	for(int i=0;i<round;i++)
 	{
-		fout << scoresEntered[i].date << "	" << scoresEntered[i].courseName // fin  >> oldFactor >> cDate >> cName >> cIndex >> cScore>> cRating >> cSlope;
-		<< "    " << scoresEntered[i].index << "    " 
-		<< scoresEntered[0].score << "    " << scoresEntered[i].courseRating 
-		<< "    " <<  scoresEntered[i].courseSlope << "    " <<  endl;
+		fout << fixed << setprecision(0) << setw(6) << scoresEntered[i].date << "    ";
+		fout << fixed << setprecision(0) << setw(10) << scoresEntered[i].courseName<< "    ";
+		fout << fixed << setprecision(1) << setw(4) << scoresEntered[i].index << "    "; 
+		fout << fixed << setprecision(0) << setw(4) << scoresEntered[i].score << "    ";
+		fout << fixed << setprecision(1) << setw(4) << scoresEntered[i].courseRating << "    ";
+		fout << fixed << setprecision(1) << setw(4) << scoresEntered[i].courseSlope << "    " << endl;
 	}
 	
 	fout.close();
