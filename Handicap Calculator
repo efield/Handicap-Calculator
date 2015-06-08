@@ -90,11 +90,16 @@ int main()
 		cout << "Error diff.txt not found" << endl;
 		return -1;
 	}
-	scoreEntry scoresEntered[100];
+	scoreEntry scoresEntered[20];
 	string entry,courseName;
 	int date,score,day;
-	double difference[100]={0}, bestTen[10]={-100},courseRating,courseSlope,index;
+	double difference[20]={0}, bestTen[10]={-100},courseRating,courseSlope,index;
 	int round = readInFile(fin,difference,scoresEntered);
+	
+	if(round>19)
+	{
+		round=0;
+	}
 
 	do
 	{		
@@ -130,12 +135,16 @@ int main()
 		scoresEntered[round].index = difference[round];
 		
 		round++;
+			if(round>19)
+	{
+		round=0;
+	}
 			
 		cout << "Would you like to enter a round? Y/N" << endl;
 		cin >> entry;
 			
 		
-	} while(entry == "Y" && round<50);
+	} while(entry == "Y");
 	ofstream fout("diff.txt");
 	double hCap = calcHandicap(round,difference,bestTen);
 	
